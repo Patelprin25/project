@@ -15,8 +15,10 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Added "About Us" here:
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
     { name: 'Services', path: '/services' },
     { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' },
@@ -32,6 +34,7 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        {/* Logo */}
         <Link to="/" className="flex items-center space-x-3">
           <img
             src="/AET logo.png"
@@ -68,7 +71,7 @@ const Navbar = () => {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden z-10 text-gray-700 hover:text-green-700 transition duration-300"
+          className="md:hidden z-50 text-gray-700 hover:text-green-700 transition duration-300"
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
@@ -85,14 +88,16 @@ const Navbar = () => {
               transition={{ duration: 0.4 }}
               className="
                 fixed inset-0
-                bg-white             /* fully opaque */
+                bg-white              /* full white background */
                 backdrop-blur-xl
-                z-60                 /* above the header */
+                z-60                  /* above everything */
                 flex flex-col
-                justify-center
+                justify-start         /* stack from the top */
                 items-center
                 space-y-6
-                overflow-y-auto      /* scroll if too tall */
+                overflow-y-auto       /* scroll if content overflows */
+                pt-24                 /* push below the close button */
+                px-4                  /* side padding */
               "
             >
               {navLinks.map((link) => (
@@ -101,7 +106,7 @@ const Navbar = () => {
                   to={link.path}
                   onClick={() => setIsMenuOpen(false)}
                   className={({ isActive }) =>
-                    `px-8 py-3 rounded-2xl text-2xl font-semibold transition ${
+                    `w-full text-center px-8 py-3 rounded-2xl text-2xl font-semibold transition ${
                       isActive
                         ? 'text-green-700 bg-green-100 shadow-lg'
                         : 'text-gray-700 hover:text-green-700 hover:bg-green-50'
@@ -111,10 +116,12 @@ const Navbar = () => {
                   {link.name}
                 </NavLink>
               ))}
+
+              {/* Talk to Sales button */}
               <Link
                 to="/contact"
                 onClick={() => setIsMenuOpen(false)}
-                className="mt-4 px-10 py-3 rounded-full bg-gradient-to-r from-green-500 to-green-700 text-white text-xl font-semibold shadow-xl hover:scale-105 transition"
+                className="w-full text-center mt-4 px-10 py-3 rounded-full bg-gradient-to-r from-green-500 to-green-700 text-white text-xl font-semibold shadow-xl hover:scale-105 transition"
               >
                 Talk to Sales
               </Link>
