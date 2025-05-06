@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Leaf } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Link, NavLink } from 'react-router-dom';
 
 const navLinks = [
@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       <header 
-        className={`fixed top-5 left-5 right-5 z-[1000] transition-all duration-300
+        className={`fixed top-5 left-0 right-0 z-[1000] px-5 transition-all duration-300
           ${isScrolled 
             ? 'bg-white/90 backdrop-blur-md shadow-lg'
             : 'bg-white/15 backdrop-blur-[10px]'
@@ -95,7 +95,7 @@ const Navbar: React.FC = () => {
         onClick={() => setIsMenuOpen(false)}
       >
         <div
-          className={`fixed top-5 right-5 h-[calc(100vh-40px)] w-4/5 max-w-sm 
+          className={`fixed top-5 right-5 h-[calc(100vh-40px)] w-full max-w-sm 
             bg-white/90 backdrop-blur-[10px] rounded-[30px] border border-white/20
             shadow-[0_4px_15px_rgba(0,0,0,0.1)]
             transform transition-transform duration-300 ease-in-out
