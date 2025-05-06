@@ -83,7 +83,17 @@ const Navbar = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: '100%' }}
               transition={{ duration: 0.4 }}
-              className="fixed inset-0 bg-white/95 backdrop-blur-xl flex flex-col justify-center items-center space-y-6 z-40"
+              className="
+                fixed inset-0
+                bg-white             /* fully opaque */
+                backdrop-blur-xl
+                z-60                 /* above the header */
+                flex flex-col
+                justify-center
+                items-center
+                space-y-6
+                overflow-y-auto      /* scroll if too tall */
+              "
             >
               {navLinks.map((link) => (
                 <NavLink
