@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
           <Link to="/" className="flex items-center space-x-2">
             <img src="/AET logo.png" alt="Arya EarthTech" className="h-8 w-8" />
             <span className="text-xl font-bold text-gray-800">
-              Arya EarthTech
+            
             </span>
           </Link>
 
