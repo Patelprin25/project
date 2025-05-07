@@ -1,59 +1,53 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
-import { useEffect, useState, useCallback } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-
-const navLinks = [
-  { name: 'Home', path: '/' },
-  { name: 'Services', path: '/services' },
-  { name: 'FAQ', path: '/faq' },
-  { name: 'Contact', path: '/contact' },
-]
+import { AnimatePresence, motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const handleScroll = useCallback(() => {
-    setIsScrolled(window.scrollY > 20)
-  }, [])
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [handleScroll])
+    const handleScroll = () => setIsScrolled(window.scrollY > 30);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const closeMenu = () => setIsMenuOpen(false)
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+    { name: 'FAQ', path: '/faq' },
+    { name: 'Contact', path: '/contact' },
+  ];
 
   return (
     <motion.header
-      initial={{ y: -100, opacity: 0 }}
+      initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className={`
-        fixed top-0 left-0 w-full z-50
-        backdrop-blur-md transition-colors duration-300
-        ${isScrolled ? 'bg-white/95 shadow-lg' : 'bg-white/20'}
-      `}
+      transition={{ duration: 0.6 }}
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ease-in-out backdrop-blur-xl ${
+        isScrolled ? 'bg-white/90 shadow-xl py-4' : 'bg-transparent shadow-md py-5'
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 flex items-center justify-between h-16">
-        {/* Logo */}
-        <Link to="/" className="flex items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <Link to="/" className="flex items-center space-x-3">
           <img
             src="/AET logo.png"
-            alt="Arya EarthTech"
-            className="h-10 w-auto object-contain"
+            alt="Arya EarthTech Logo"
+            className="h-12 w-auto object-contain drop-shadow-xl"
           />
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex space-x-8 items-center">
-          {navLinks.map(link => (
+        <nav className="hidden md:flex items-center space-x-6">
+          {navLinks.map((link) => (
             <NavLink
               key={link.path}
               to={link.path}
               className={({ isActive }) =>
-                `relative py-2 font-medium transition ${
+                `relative group px-5 py-2 text-lg font-semibold transition-all duration-300 ${
                   isActive
                     ? 'text-green-700'
                     : 'text-gray-700 hover:text-green-700'
@@ -66,75 +60,60 @@ const Navbar = () => {
           ))}
           <Link
             to="/contact"
-            className="ml-6 px-5 py-2 rounded-full bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold hover:scale-105 transform transition"
+            className="ml-4 px-5 py-2 rounded-full bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold shadow-xl hover:scale-105 transition-all duration-300"
           >
             Talk to Sales
           </Link>
         </nav>
 
-        {/* Mobile menu button */}
+        {/* Mobile Toggle */}
         <button
-          className="lg:hidden p-2 text-gray-700 hover:text-green-700 transition"
-          onClick={() => setIsMenuOpen(o => !o)}
-          aria-label="Open menu"
+          className="md:hidden z-10 text-gray-700 hover:text-green-700 transition duration-300"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
         >
-          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {isMenuOpen ? <X size={30} /> : <Menu size={30} />}
         </button>
-      </div>
 
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <>
-            {/* Backdrop */}
+        {/* Mobile Drawer */}
+        <AnimatePresence>
+          {isMenuOpen && (
             <motion.div
-              key="backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              exit={{ opacity: 0 }}
-              onClick={closeMenu}
-              className="fixed inset-0 bg-black z-40"
-            />
-            {/* Drawer */}
-            <motion.div
-              key="drawer"
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.3 }}
-              className="fixed top-0 right-0 w-3/4 max-w-sm h-full bg-white p-8 z-50 shadow-xl"
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ duration: 0.4 }}
+              className="fixed inset-0 bg-white/95 backdrop-blur-xl flex flex-col justify-center items-center space-y-6 z-40"
             >
-              <div className="flex flex-col space-y-6">
-                {navLinks.map(link => (
-                  <NavLink
-                    key={link.path}
-                    to={link.path}
-                    onClick={closeMenu}
-                    className={({ isActive }) =>
-                      `block text-xl font-medium transition ${
-                        isActive
-                          ? 'text-green-700'
-                          : 'text-gray-700 hover:text-green-700'
-                      }`
-                    }
-                  >
-                    {link.name}
-                  </NavLink>
-                ))}
-                <Link
-                  to="/contact"
-                  onClick={closeMenu}
-                  className="mt-4 inline-block text-center px-6 py-3 rounded-full bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold hover:scale-105 transform transition"
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `px-8 py-3 rounded-2xl text-2xl font-semibold transition ${
+                      isActive
+                        ? 'text-green-700 bg-green-100 shadow-lg'
+                        : 'text-gray-700 hover:text-green-700 hover:bg-green-50'
+                    }`
+                  }
                 >
-                  Talk to Sales
-                </Link>
-              </div>
+                  {link.name}
+                </NavLink>
+              ))}
+              <Link
+                to="/contact"
+                onClick={() => setIsMenuOpen(false)}
+                className="mt-4 px-10 py-3 rounded-full bg-gradient-to-r from-green-500 to-green-700 text-white text-xl font-semibold shadow-xl hover:scale-105 transition"
+              >
+                Talk to Sales
+              </Link>
             </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
