@@ -69,7 +69,17 @@ const ServiceDetailPage = () => {
                   <img
                     src={service.image}
                     alt={`Image representing ${service.title}`}
-                    className="w-full h-auto object-cover"
+                    className="w-full h-[300px] object-contain bg-white p-4"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      // First try loading from public/images/certifications
+                      target.src = `/images/certifications/${service.id}-certification.png`;
+                      // If that fails, use a fallback
+                      target.onerror = () => {
+                        target.src = '/images/service-fallback.png';
+                        target.onerror = null;
+                      };
+                    }}
                   />
                 </div>
 
