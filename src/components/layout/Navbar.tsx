@@ -33,23 +33,23 @@ const Navbar: React.FC = () => {
   return (
     <>
       <header 
-        className={`fixed top-5 left-0 right-0 z-[1000] px-5 transition-all duration-300
+        className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300
           ${isScrolled 
-            ? 'bg-white/90 backdrop-blur-md shadow-lg'
-            : 'bg-white/15 backdrop-blur-[10px]'
+            ? 'bg-white/90 backdrop-blur-md shadow-lg mt-0'
+            : 'bg-white/15 backdrop-blur-[10px] mt-2 sm:mt-5'
           }
-          rounded-[50px] border border-white/20
+          mx-2 sm:mx-5 rounded-[25px] sm:rounded-[50px] border border-white/20
           shadow-[0_4px_15px_rgba(0,0,0,0.1)]
-          min-h-[60px]`}
+          min-h-[50px] sm:min-h-[60px]`}
       >
-        <nav className="container mx-auto px-5 md:px-6">
-          <div className="flex items-center justify-between h-[60px]">
+        <nav className="container mx-auto px-3 sm:px-5 md:px-6">
+          <div className="flex items-center justify-between h-[50px] sm:h-[60px]">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2">
               <img 
                 src="/AET logo.png" 
                 alt="AryaEarthTech" 
-                className="h-8 w-auto"
+                className="h-6 sm:h-8 w-auto"
               />
             </Link>
 
@@ -95,15 +95,14 @@ const Navbar: React.FC = () => {
         onClick={() => setIsMenuOpen(false)}
       >
         <div
-          className={`fixed top-5 right-5 h-[calc(100vh-40px)] w-full max-w-sm 
-            bg-white/90 backdrop-blur-[10px] rounded-[30px] border border-white/20
-            shadow-[0_4px_15px_rgba(0,0,0,0.1)]
+          className={`fixed top-0 left-0 h-full w-full 
+            bg-white/80 backdrop-blur-md
             transform transition-transform duration-300 ease-in-out
-            ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+            ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="h-full flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div className="flex items-center justify-between p-6">
               <div className="flex items-center gap-2">
                 <img 
                   src="/aryaearthtech.png" 
@@ -129,10 +128,10 @@ const Navbar: React.FC = () => {
                   className={({ isActive }) => `
                     block py-4 text-xl font-medium transition-all duration-300
                     ${isActive 
-                      ? 'text-[#00A0E3] bg-white/20' 
-                      : 'text-eco-dark hover:text-[#00A0E3] hover:bg-white/20'
+                      ? 'text-[#00A0E3] bg-white/10' 
+                      : 'text-eco-dark hover:text-[#00A0E3] hover:bg-white/10'
                     }
-                    rounded-[25px] px-6 mb-2
+                    rounded-lg px-6 mb-3
                   `}
                 >
                   {link.name}
@@ -142,9 +141,6 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Header Spacing */}
-      <div className="h-24"></div>
     </>
   );
 };
