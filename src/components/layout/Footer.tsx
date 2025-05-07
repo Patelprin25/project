@@ -69,7 +69,7 @@ const Footer = () => {
           <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
           <ul className="space-y-3 text-sm">
             <li className="flex items-start space-x-2">
-              <MapPin size={35} className="text-green-700 mt-1" />
+              <MapPin className="text-green-700 mt-1 h-6 w-6 md:h-9 md:w-9" />
               <span>408, Rudra Arcade, Drive In Rd, Memnagar, Ahmedabad, Gujarat 380052</span>
             </li>
             <li className="flex items-center space-x-2">

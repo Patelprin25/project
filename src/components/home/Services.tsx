@@ -22,7 +22,7 @@ const featuredServices = [
     title: 'EcoVadis Certification',
     description: 'Expert support to achieve and maintain EcoVadis certification, improving your sustainability rating.',
     icon: '🏆',
-    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+    image: '/images/certifications/ecovadis-certification.png'
   }
 ];
 
@@ -67,6 +67,11 @@ const Services = () => {
                   src={service.image}
                   alt={service.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/images/fallback-image.png'; // Add a fallback image
+                    target.onerror = null; // Prevent infinite loop
+                  }}
                 />
                 <div className="absolute top-4 left-4 bg-white rounded-full h-10 w-10 flex items-center justify-center text-xl shadow-sm">
                   {service.icon}

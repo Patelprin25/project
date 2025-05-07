@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const ContactCTA = () => {
-  const [formData, setFormData] = useState({
+  const [] = useState({
     name: '',
     email: '',
     phone: '',
@@ -11,29 +11,7 @@ const ContactCTA = () => {
     message: ''
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // In a real implementation, you would send this data to your backend
-    console.log('Form submitted:', formData);
-    // Reset form after submission
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      message: ''
-    });
-    // Show success message
-    alert('Thank you for your message! We will get back to you soon.');
-  };
 
   return (
     <section className="section bg-white">
@@ -82,7 +60,17 @@ const ContactCTA = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form 
+                  action="https://formsubmit.co/info@aryaearthtech.com" 
+                  method="POST" 
+                  className="space-y-4"
+                >
+                  {/* Hidden inputs for formsubmit.co configuration */}
+                  <input type="hidden" name="_captcha" value="false" />
+                  <input type="hidden" name="_template" value="table" />
+                  <input type="hidden" name="_subject" value="New Contact Form Submission from Homepage" />
+                  <input type="hidden" name="_next" value="https://aryaearthtech.com/thank-you" />
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-accent-700 mb-1">
@@ -92,8 +80,6 @@ const ContactCTA = () => {
                         type="text"
                         id="name"
                         name="name"
-                        value={formData.name}
-                        onChange={handleChange}
                         required
                         className="input"
                         placeholder="Your name"
@@ -107,8 +93,6 @@ const ContactCTA = () => {
                         type="email"
                         id="email"
                         name="email"
-                        value={formData.email}
-                        onChange={handleChange}
                         required
                         className="input"
                         placeholder="Your email"
@@ -125,8 +109,6 @@ const ContactCTA = () => {
                         type="tel"
                         id="phone"
                         name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
                         className="input"
                         placeholder="Your phone number"
                       />
@@ -139,8 +121,6 @@ const ContactCTA = () => {
                         type="text"
                         id="company"
                         name="company"
-                        value={formData.company}
-                        onChange={handleChange}
                         className="input"
                         placeholder="Your company"
                       />
@@ -154,8 +134,6 @@ const ContactCTA = () => {
                     <textarea
                       id="message"
                       name="message"
-                      value={formData.message}
-                      onChange={handleChange}
                       rows={4}
                       required
                       className="input resize-none"

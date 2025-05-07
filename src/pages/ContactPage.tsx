@@ -104,6 +104,8 @@ const ContactPage = () => {
                   className="space-y-6"
                 >
                   <input type="hidden" name="_captcha" value="false" />
+                  <input type="hidden" name="_template" value="table" />
+                  <input type="hidden" name="_subject" value="New Contact Form Submission from Contact Page" />
                   <input type="hidden" name="_next" value="https://aryaearthtech.com/thank-you" />
 
                   <div>
